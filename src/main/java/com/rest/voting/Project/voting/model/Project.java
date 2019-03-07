@@ -1,6 +1,5 @@
 package com.rest.voting.Project.voting.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
