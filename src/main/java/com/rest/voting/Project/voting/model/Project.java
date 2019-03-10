@@ -3,10 +3,7 @@ package com.rest.voting.Project.voting.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -26,4 +23,5 @@ public class Project {
         this.name = name;
         this.description = description;
     }
+
 }

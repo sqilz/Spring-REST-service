@@ -30,12 +30,15 @@ public class ProjectController {
     }
 
 
-    @RequestMapping(value = "/projectt/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Optional<Project> getProjectById(@PathVariable Long id) {
 
         return projectRepository.findById(id);
 
     }
+
+
+
 }
 
