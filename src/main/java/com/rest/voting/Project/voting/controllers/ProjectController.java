@@ -5,7 +5,10 @@ import com.rest.voting.Project.voting.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +19,7 @@ public class ProjectController {
     private ProjectRepository projectRepository;
 
 
-    @RequestMapping(value = "/projects", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/projects", produces = "application/json")
     public @ResponseBody
     List<Project> getProjects() {
         List<Project> projects = projectRepository.findAll(new Sort(Sort.Direction.ASC, "name"));
@@ -24,7 +27,7 @@ public class ProjectController {
     }
 
 
-    @RequestMapping(value = "/project/{id}", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/project/{id}", produces = "application/json")
     public @ResponseBody
     Optional<Project> getProjectById(@PathVariable Long id) {
         return projectRepository.findById(id);
