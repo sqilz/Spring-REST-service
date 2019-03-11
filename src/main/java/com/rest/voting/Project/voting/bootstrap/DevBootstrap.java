@@ -29,10 +29,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Project thirdProject = new Project("BThirdProject", "This is a third project", true);
 
         Voter voter = new Voter();
+        Voter voter2 = new Voter();
 
         projectRepository.save(project);
         projectRepository.save(secondProject);
         projectRepository.save(thirdProject);
         voterRepository.save(voter);
+        voterRepository.save(voter2);
     }
 }
