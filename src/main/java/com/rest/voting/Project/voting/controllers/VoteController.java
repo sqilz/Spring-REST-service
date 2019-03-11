@@ -30,12 +30,12 @@ public class VoteController {
     String voteOnProject(@PathVariable Long projectId, Long voterId, boolean voteType) {
         Optional<Project> project = projectRepository.findById(projectId);
         project.ifPresent(project1 -> {
-            boolean votable = project1.isVotable();
-            if (votable) {
+            Optional<Vote> vote = voteRepository.voteExists(projectRepository.findById(projectId), voterRepository.findById(voterId));
+            if (project1.isVotable() && vote.isEmpty()) {
                 voteRepository.save(new Vote(projectRepository.findById(projectId).get(), voterRepository.findById(voterId).get(), voteType));
                 this.message = "Voter: " + voterId + " has voted for project: " + projectId;
             } else {
-                this.message = "Project with id: " + projectId + " is not votable";
+                this.message = "Project with id: " + projectId + " is not votable, or it has been voted for already\nWas this project voted for?: " + vote.isPresent() + "\nIs this project Votable?: " + project1.isVotable();
             }
 
         });
