@@ -5,6 +5,7 @@ import com.rest.voting.Project.voting.model.Vote;
 import com.rest.voting.Project.voting.repositories.ProjectRepository;
 import com.rest.voting.Project.voting.repositories.VoteRepository;
 import com.rest.voting.Project.voting.repositories.VoterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +16,15 @@ import java.util.Optional;
 
 @Controller
 public class VoteController {
+    @Autowired
     private VoterRepository voterRepository;
+    @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
     private VoteRepository voteRepository;
+
     private String message;
 
-    public VoteController(VoterRepository voterRepository, ProjectRepository projectRepository, VoteRepository voteRepository) {
-        this.voterRepository = voterRepository;
-        this.projectRepository = projectRepository;
-        this.voteRepository = voteRepository;
-    }
 
     @RequestMapping(value = "/vote/{projectId}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
