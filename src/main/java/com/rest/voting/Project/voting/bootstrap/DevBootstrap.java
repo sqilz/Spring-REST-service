@@ -3,7 +3,6 @@ package com.rest.voting.Project.voting.bootstrap;
 import com.rest.voting.Project.voting.model.Project;
 import com.rest.voting.Project.voting.model.Voter;
 import com.rest.voting.Project.voting.repositories.ProjectRepository;
-import com.rest.voting.Project.voting.repositories.VoteRepository;
 import com.rest.voting.Project.voting.repositories.VoterRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private ProjectRepository projectRepository;
     private VoterRepository voterRepository;
-    private VoteRepository voteRepository;
 
     public DevBootstrap(ProjectRepository projectRepository, VoterRepository voterRepository) {
         this.projectRepository = projectRepository;
