@@ -1,50 +1,45 @@
 package com.rest.voting.Project.voting.controllers;
 
 import com.rest.voting.Project.voting.model.Project;
-import com.rest.voting.Project.voting.repositories.ProjectRepository;
+import com.rest.voting.Project.voting.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
-@Controller
+@RestController
 public class ProjectController {
-    @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectService projectService;
 
+    @Autowired
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @GetMapping(value = "/projects", produces = "application/json")
-    public @ResponseBody
-    List<Project> getProjects() {
-        List<Project> projects = projectRepository.findAll(new Sort(Sort.Direction.ASC, "name"));
-        return projects;
+    public ResponseEntity<List<Project>> getProjects() {
+        return ResponseEntity.ok().body(projectService.getProjects());
     }
 
 
     @GetMapping(value = "/project/{id}", produces = "application/json")
-    public @ResponseBody
-    Optional<Project> getProjectById(@PathVariable Long id) {
-        return projectRepository.findById(id);
+    public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
+
+        return ResponseEntity.ok()
+                .body(projectService.getProjectById(id));
     }
 
     @PatchMapping(value = "/project/{id}", produces = "application/json")
-    public @ResponseBody
-    String setProjectVotability(@PathVariable Long id, boolean votable) {
-        Optional<Project> project = projectRepository.findById(id);
-        project.ifPresent(project1 -> {
-            project1.setVotable(votable);
-        });
-        project.ifPresent(project1 -> projectRepository.save(project1));
+    public ResponseEntity<Project> setProjectVotability(@PathVariable Long id, boolean votable) {
 
-        return "Project with id:" + id + " votability has been set to " + votable;
+        Project project = projectService.setProjectVotability(id, votable);
+
+        return ResponseEntity.ok()
+                .body(project);
     }
-
-
 }
 
