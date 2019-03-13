@@ -1,31 +1,25 @@
 package com.rest.voting.Project.voting.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
-@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Vote {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Builder
+public class Vote extends BaseModel {
     @ManyToOne
     private Project project;
     @ManyToOne
     private Voter voter;
 
     private boolean vote;
-
-    public Vote(Project project, Voter voter, boolean vote) {
-        this.project = project;
-        this.voter = voter;
-        this.vote = vote;
-    }
 
 
 }
