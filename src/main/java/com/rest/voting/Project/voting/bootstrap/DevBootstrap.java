@@ -11,10 +11,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+    private final ProjectRepository projectRepository;
+    private final VoterRepository voterRepository;
+
     @Autowired
-    private ProjectRepository projectRepository;
-    @Autowired
-    private VoterRepository voterRepository;
+    public DevBootstrap(ProjectRepository projectRepository, VoterRepository voterRepository) {
+        this.projectRepository = projectRepository;
+        this.voterRepository = voterRepository;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -22,9 +26,20 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void initData() {
-        Project project = new Project("FirstProject", "This is a first project", true);
-        Project secondProject = new Project("ASecondProject", "This is a second project", true);
-        Project thirdProject = new Project("BThirdProject", "This is a third project", true);
+        Project project = Project.builder()
+                .name("FirstProject")
+                .description("This is a first project")
+                .votable(true).build();
+
+        Project secondProject = Project.builder()
+                .name("ASecondProject")
+                .description("This is a second project")
+                .votable(true).build();
+
+        Project thirdProject = Project.builder()
+                .name("BThirdProject")
+                .description("This is a third project")
+                .votable(true).build();
 
         Voter voter = new Voter();
         Voter voter2 = new Voter();
