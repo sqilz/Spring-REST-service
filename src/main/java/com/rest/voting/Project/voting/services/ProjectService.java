@@ -2,6 +2,7 @@ package com.rest.voting.Project.voting.services;
 
 import com.rest.voting.Project.voting.model.Project;
 import com.rest.voting.Project.voting.repositories.ProjectRepository;
+import com.rest.voting.Project.voting.services.exceptions.ProjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class ProjectService {
     }
 
     public Project getProjectById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Project with that ID doesn't exist"));
+        return projectRepository.findById(id).orElseThrow(() -> new ProjectException(id));
     }
 
     public Project setProjectVotability(Long id, boolean votable) {

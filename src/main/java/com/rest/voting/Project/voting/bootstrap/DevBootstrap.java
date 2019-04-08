@@ -1,6 +1,7 @@
 package com.rest.voting.Project.voting.bootstrap;
 
 import com.rest.voting.Project.voting.model.Project;
+import com.rest.voting.Project.voting.model.Vote;
 import com.rest.voting.Project.voting.model.Voter;
 import com.rest.voting.Project.voting.repositories.ProjectRepository;
 import com.rest.voting.Project.voting.repositories.VoterRepository;
@@ -41,8 +42,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
                 .description("This is a third project")
                 .votable(true).build();
 
-        Voter voter = new Voter();
-        Voter voter2 = new Voter();
+        Voter voter = Voter.builder().build();
+        Voter voter2 = Voter.builder().build();
 
         projectRepository.save(project);
         projectRepository.save(secondProject);
